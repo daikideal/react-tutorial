@@ -5,11 +5,16 @@ import './index.css';
 interface SquareProps {
   value: number
 }
-class Square extends React.Component<SquareProps> {
-  constructor(props) {
+
+interface SquaerState {
+  value: string
+}
+
+class Square extends React.Component<SquareProps, SquaerState> {
+  constructor(props: SquareProps) {
     super(props);
     this.state = {
-      value: null,
+      value: "",
     };
   }
 
