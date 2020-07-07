@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 interface SquareProps {
-  value: number
+  value: string
 }
 
 interface SquaerState {
@@ -30,9 +30,24 @@ class Square extends React.Component<SquareProps, SquaerState> {
   }
 }
 
-class Board extends React.Component {
+interface BoardProps {
+  squares: Array<string>
+}
+
+interface BoardState {
+  squares: Array<string>
+}
+
+class Board extends React.Component<BoardProps, BoardState> {
+  constructor(props: BoardProps) {
+    super(props);
+    this.state = {
+      squares: Array(9).fill(''),
+    };
+  }
+
   renderSquare(i: number) {
-    return <Square value={i} />;
+    return <Square value={this.state.squares[i]} />;
   }
 
   render() {
@@ -66,7 +81,7 @@ class Game extends React.Component {
     return (
       <div className="game">
         <div className="game-board">
-          <Board />
+          <Board squares={Array(9).fill("")} />
         </div>
         <div className="game-info">
           <div>{/* status */}</div>
