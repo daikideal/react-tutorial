@@ -4,6 +4,7 @@ import './index.css';
 
 interface SquareProps {
   value: string
+  onClick: () => void
 }
 
 interface SquaerState {
@@ -11,20 +12,13 @@ interface SquaerState {
 }
 
 class Square extends React.Component<SquareProps, SquaerState> {
-  constructor(props: SquareProps) {
-    super(props);
-    this.state = {
-      value: "",
-    };
-  }
-
   render() {
     return (
       <button
         className="square"
-        onClick={() => this.setState({value: 'X'})}
+        onClick={() => this.props.onClick()}
       >
-        {this.state.value}
+        {this.props.value}
       </button>
     );
   }
@@ -46,8 +40,17 @@ class Board extends React.Component<BoardProps, BoardState> {
     };
   }
 
+  handleClick(i: number) {
+    const squares = this.state.squares.slice();
+    squares[i] = 'X';
+    this.setState({squares: squares});
+  }
+
   renderSquare(i: number) {
-    return <Square value={this.state.squares[i]} />;
+    return <Square
+              value={this.state.squares[i]}
+              onClick={() => this.handleClick(i)}
+           />;
   }
 
   render() {
